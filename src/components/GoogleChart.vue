@@ -1,10 +1,10 @@
 <template>
   <div>
-    <GChart
+    <button @click="updateData">Show Chart</button>
+    <GChart id="chart"
       type="PieChart"
       :data="chartData"
       :options="chartOptions"
-      style="width: 80vw; height: 80vh; margin: auto;"
     />
   </div>
 </template>
@@ -14,27 +14,50 @@
 
   export default {
     name: 'google-chart',
+    props: ['newDataArray'],
     data () {
       return {
-        // Array will be automatically processed with visualization.arrayToDataTable function
-        chartData: [
-          ['Category', 'Amount'],
-          ['Category1', 3000],
-          ['2015', 1170],
-          ['2016', 660],
-          ['2017', 1030]
-        ],
+        chartDataHeader: ['Foo', 'Bar'],
+        updatedChartData: [],
         chartOptions: {
-          is3D: true
+            backgroundColor: {
+              fill: 'transparent'
+            },
+            legend: {
+              textStyle: {
+                color: 'white'
+              }
+            },
+            is3D: true
+          }
         }
-      }
     },
     components: {
       GChart
+    },
+    computed: {
+      chartData () {
+        return [ this.chartDataHeader, ...this.updatedChartData ]
+      }
+    },
+    methods: {
+      updateData () {
+        this.updatedChartData = this.newDataArray
+      }
     }
-  }
+    // watch: {
+    //   newDataArray: function (newStuff, oldStuff) {
+    //     updateData();
+    //   }
+    // }
+  };
 </script>
 
 <style scoped>
-
+  #chart {
+    width: 60vw;
+    height: 60vh; 
+    margin: auto; 
+    margin-top: 20px;
+  }
 </style>

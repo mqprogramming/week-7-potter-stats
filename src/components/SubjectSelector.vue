@@ -1,7 +1,7 @@
 <template>
   <div>
     <form>
-      <select v-model="selectedSubject" v-if="!selectedOption">
+      <select v-model="selectedSubject" v-if="selectedOption === '' ">
         <option v-for="(subject, index) in subjects" :value="subject" :key="index">{{ subject.label }}</option>
       </select>
       <select v-model="selectedOption" v-if="selectedSubject != 'no-value'" v-on:change="handleChange()">
